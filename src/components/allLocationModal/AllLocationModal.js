@@ -3,7 +3,8 @@ import { Modal, View, Text, StyleSheet, FlatList } from 'react-native';
 import { COLOR, commonStyles, hp, TEXT_STYLE, wp } from '../../enums/StyleGuide';
 import { CustomIcon, Label, Pressable } from '../reuseables';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeLocation } from '../../redux/action/Action';
+import { addLocation, removeLocation } from '../../redux/action/Action';
+
 
 const AllLocationModal = ({ visible, setVisible }) => {
   const pinLocations = useSelector(({ locationReducer }) => locationReducer);
@@ -13,8 +14,8 @@ const AllLocationModal = ({ visible, setVisible }) => {
     setVisible(false);
   };
 
-  const handleRemoveLocation = (item)=>{
-    dispatch(removeLocation(item?.id)); 
+  const handleRemoveLocation = (item) => {
+    dispatch(removeLocation(item?.id))
   }
 
   return (
@@ -33,12 +34,13 @@ const AllLocationModal = ({ visible, setVisible }) => {
 
           <FlatList
             data={pinLocations}
+            ListEmptyComponent={<Label>No location found....</Label>}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.flatlistContent}
             renderItem={({ item, }) => (
               <View key={item?.id} style={styles.locationCard}>
                 <Label style={styles.locationName}>{item?.title}</Label>
-                <Pressable onPress={()=>handleRemoveLocation(item)}>
+                <Pressable onPress={() => handleRemoveLocation(item)}>
                   <CustomIcon name={"cross"} family='Entypo' color={COLOR.red} size={hp(3)} />
                 </Pressable>
               </View>
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
   locationName: {
     ...TEXT_STYLE.bigTextSemiBold
   },
-  flatlistContent:{
-    paddingVertical:hp(2)
+  flatlistContent: {
+    paddingVertical: hp(2)
   }
 });

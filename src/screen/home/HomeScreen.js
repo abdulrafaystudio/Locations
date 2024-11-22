@@ -11,7 +11,7 @@ const HomeScreen = () => {
   const pinLocations = useSelector(({ locationReducer }) => locationReducer);
   const [showModal, setShowModal] = useState(false);
 
-  console.log("pinLocations",pinLocations)
+
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -22,7 +22,7 @@ const HomeScreen = () => {
 
   const handleMapPress = (e) => {
     const { latitude, longitude } = e.nativeEvent.coordinate;
-    const randomId = Math.floor(100000 + Math.random() * 900000);
+    const randomId = (Math.floor(100000 + Math.random() * 900000)).toString();
     const data = {
       id: randomId,
       latitude,
